@@ -2,8 +2,9 @@
 #include <cmath>
 #include <mpi.h>
 #include <vector>
+#include <algorithm> // Para std::reverse
 
-void binary_to_decimal(const std::string &binary)
+void binary_to_decimal(const std::string &binary, const std::string &original_binary)
 {
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -38,7 +39,7 @@ void binary_to_decimal(const std::string &binary)
     }
 
     // Mostrar el resultado en cada proceso
-    std::cout << "Proceso " << rank << ": El número binario " << binary << " es " << total << " en decimal." << std::endl;
+    std::cout << "Proceso " << rank << ": El número binario " << original_binary << " es " << total << " en decimal." << std::endl;
 }
 
 int main(int argc, char **argv)
@@ -50,7 +51,13 @@ int main(int argc, char **argv)
 
     for (const auto &binary : binaries)
     {
-        binary_to_decimal(binary);
+        // Invertir la cadena binaria
+        std::string reversed_binary = binary;
+        std::reverse(reversed_binary.begin(), reversed_binary.end());
+
+        // Procesar el número binario
+        binary_to_decimal(reversed_binary, binary);
+
         MPI_Barrier(MPI_COMM_WORLD); // Sincronizar antes de procesar el siguiente número
     }
 
