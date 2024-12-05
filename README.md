@@ -100,3 +100,17 @@ Ejercicio 2 (3 puntos)
 Implementar un programa que realice la transposición de una matriz inicial en paralelo, distribuyendo la matriz entre 4 procesos:
 
 Matriz inicial:
+```cpp
+1  2  3  4  
+5  6  7  8  
+9 10 11 12  
+13 14 15 16  
+```
+
+Matriz transpuesta:
+```cpp
+1  5  9  13  
+2  6  10 14  
+3  7  11 15  
+4  8  12 16  
+```
